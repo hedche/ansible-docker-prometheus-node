@@ -1,0 +1,11 @@
+---
+
+- name: Configuring master ...
+  include_tasks:
+    - master.yml
+  when: ansible_hostname in group['master']
+
+- name: Configuring node ...
+  include_tasks:
+    - node.yml
+  when: ansible_hostname in group['node']
