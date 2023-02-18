@@ -1,0 +1,31 @@
+---
+- name: Install packages
+  apt:
+    pkg:
+      - python3 
+      - python3-pip
+    cache_valid_time: 86400
+
+- name: Install Prometheus PVE Exporter
+  pip:
+    name: prometheus-pve-exporter
+
+- name: Create authentication file
+  template:
+    src: pve.j2
+    dest: /etc/prometheus/pve.yml
+
+- name: Create systemd configuration file
+  copy:
+    src: prometheus-pve-exporter.service
+    dest: /etc/systemd/system/prometheus-pve-exporter.service
+    mode: 0755
+
+- name: Make sure a service is running
+  systemd:
+    daemon_reload: yes
+    state: started
+    name: prometheus-pve-exporter
+    enabled: yes
+
+
