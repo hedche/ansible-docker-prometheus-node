@@ -7,5 +7,5 @@
 
 - name: Configuring node ...
   include_tasks:
-    - node.yml
-  when: ansible_hostname in group['node']
+    - proxmox-exporter.yml
+  when: ansible_hostname in group['proxmox-nodes']

@@ -1,0 +1,3 @@
+---
+user: root@pam
+verify_ssl: true
