@@ -27,5 +27,3 @@
     state: started
     name: prometheus-pve-exporter
     enabled: yes
-
-
