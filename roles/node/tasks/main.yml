@@ -1,5 +1,4 @@
 ---
 - name: Configuring Proxmox PVE node ...
-  include_tasks:
-    - proxmox-exporter.yml
-  when: ansible_hostname in group['proxmox-nodes']
+  import_tasks: proxmox-exporter.yml
+  when: "'proxmox-nodes' in group_names"

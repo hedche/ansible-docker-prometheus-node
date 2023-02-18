@@ -1,3 +1,18 @@
 ---
-user: root@pam
-verify_ssl: true
+master:
+  hosts:
+    192.168.18.7
+  vars:
+    ansible_user: root
+
+nodes:
+  children:
+    proxmox-nodes:
+
+proxmox-nodes:
+  hosts:
+    192.168.18.2
+  vars:
+    ansible_user: root
+    user: root@pam
+    verify_ssl: true

@@ -1,28 +1,33 @@
 ---
+- name: Install Docker
+  apt:
+    name: docker.io
+    cache_valid_time: 86400
+    state: present
+
 - name: Create directory for prometheus config
   file:
     path: /etc/docker/prometheus
     state: directory
-    recursive: yes
-    mode: 0644
+    owner: monty
+    group: monty
+    recurse: yes
+    mode: 0755
 
-- name: Update/create block if needed. Create file if not exists
-  blockinfile:
-    path: /etc/docker/prometheus/prometheus.yml
-    block: |
-      - job_name: 'proxmox'
-        metrics_path: /pve
-        static_configs:
-        - targets: ['{{ item }}:9221']
-    create: true
+- name: place prometheus config
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/docker/prometheus/prometheus.yml
+    owner: monty
+    group: monty
     mode: 0644
-    with_items: groups['proxmox-nodes']
 
 - name: Create Prometheus docker container
   docker_container:
-    name: Prometheus Server
+    name: Prometheus
     image: prom/prometheus
     ports:
       - "9090:9090"
     volumes:
       - /etc/docker/prometheus:/etc/prometheus
+    state: started

@@ -1,4 +1,9 @@
 ---
-- hosts: all
+- hosts: nodes
   roles:
-    - tasks/main.yml
+    - node
+    
+- hosts: master
+  roles:
+    - master
+

@@ -10,6 +10,13 @@
   pip:
     name: prometheus-pve-exporter
 
+- name: Create directory for prometheus config
+  file:
+    path: /etc/prometheus
+    state: directory
+    recurse: yes
+    mode: 0644
+
 - name: Create authentication file
   template:
     src: pve.j2
