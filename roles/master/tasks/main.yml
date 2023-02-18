@@ -1,0 +1,28 @@
+---
+- name: Create directory for prometheus config
+  file:
+    path: /etc/docker/prometheus
+    state: directory
+    recursive: yes
+    mode: 0644
+
+- name: Update/create block if needed. Create file if not exists
+  blockinfile:
+    path: /etc/docker/prometheus/prometheus.yml
+    block: |
+      - job_name: 'proxmox'
+        metrics_path: /pve
+        static_configs:
+        - targets: ['{{ item }}:9221']
+    create: true
+    mode: 0644
+    with_items: groups['proxmox-nodes']
+
+- name: Create Prometheus docker container
+  docker_container:
+    name: Prometheus Server
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - /etc/docker/prometheus:/etc/prometheus
