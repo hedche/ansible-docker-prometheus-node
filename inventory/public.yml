@@ -15,4 +15,4 @@ proxmox-nodes:
   vars:
     ansible_user: root
     user: root@pam
-    verify_ssl: true
+    verify_ssl: false

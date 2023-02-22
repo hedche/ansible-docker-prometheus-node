@@ -14,7 +14,7 @@
     recurse: yes
     mode: 0755
 
-- name: place prometheus config
+- name: Copy over Prometheus config
   template:
     src: prometheus.yml.j2
     dest: /etc/docker/prometheus/prometheus.yml
@@ -31,3 +31,4 @@
     volumes:
       - /etc/docker/prometheus:/etc/prometheus
     state: started
+    restart: yes

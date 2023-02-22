@@ -10,9 +10,10 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
-  - job_name: 'nodes'
+  - job_name: 'proxmox'
+    metrics_path: /pve
     static_configs:
-{% for hostname, ip in prometheus_nodes.iteritems() %}
+{% for hostname, ip in prometheus_nodes.items() %}
       - targets: ['{{ ip }}']
         labels: {'host': '{{ hostname }}' }
 {% endfor %}
