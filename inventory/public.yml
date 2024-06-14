@@ -10,8 +10,7 @@ nodes:
     proxmox-nodes:
 
 proxmox-nodes:
-  hosts:
-    192.168.18.2
+  hosts: [ '192.168.18.40', '192.168.18.80', '192.168.18.40']
   vars:
     ansible_user: root
     user: root@pam

@@ -24,7 +24,7 @@
 
 - name: Create Prometheus docker container
   docker_container:
-    name: Prometheus
+    name: prometheus
     image: prom/prometheus
     ports:
       - "9090:9090"
@@ -32,3 +32,4 @@
       - /etc/docker/prometheus:/etc/prometheus
     state: started
     restart: yes
+    restart_policy: "always"
